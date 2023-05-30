@@ -1,6 +1,7 @@
 """
 Simple code that implements the nested sampling
-to compute the evidence of a multidimensional gaussian
+to compute the evidence interpolating a 
+multivariate hypergeometric distribution
 """
 import time
 import numpy as np
@@ -15,7 +16,7 @@ def log_likelihood(ni, Ni, D, N, bound):
 
     Parameters
     ----------
-    x : array or matrix
+    Ni : array or matrix
         array of parameters
     D : int
         dimension of parameter space
@@ -33,7 +34,8 @@ def log_likelihood(ni, Ni, D, N, bound):
     int_Ni = np.array([], dtype=int)
     for nn in new_Ni:      # prendo la parte intera
         int_Ni = np.insert(int_Ni, len(int_Ni), int(nn))
-
+        
+    #serie di controlli per gestire i bordi
     X = np.zeros((3, 2), dtype=int)
     for i, b_min, b_max in zip(range(D), bound[0::2], bound[1::2]):
         if i == 2: break
@@ -66,7 +68,7 @@ def log_likelihood(ni, Ni, D, N, bound):
             likelihood = - 30
         else:
             likelihood =  np.log(L)
-    #print()
+    
     return likelihood
 
 
@@ -111,10 +113,8 @@ def samplig(ni, x, D, bound, step, N):
         #loop over the components
         for i in range(D):
             #we sample a trial variable
-            #new_sample[:D][i] = point[i] + np.random.uniform(-step, step)
             new_sample[i] = np.random.normal(point[i], step[i])
             #if it is out of bound...
-            #while np.abs(new_sample[:D][i]) > bound:
             while new_sample[i] <= bound[2*i] or new_sample[i] >= bound[2*i + 1]:
                 #...we resample the variable
                 #new_sample[:D][i] = point[i] + np.random.uniform(-step, step)
@@ -328,10 +328,11 @@ def plot_hist_par(prior, posterior, D, save=False, show=False):
 if __name__ == "__main__":
 
     np.random.seed(69420)
-    #number of points
+    #number of voters
     N = int(1e3)
-    M = int(2e4)
-
+    #number of points
+    M = int(1e4)
+    
     bound = np.array([200, 650, 200, 650, 0, N], dtype=int)
     #dimension
     D = len(bound)//2
