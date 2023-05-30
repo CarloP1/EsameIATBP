@@ -20,7 +20,7 @@ PP = np.linspace(0, 1, 10)
 def likelihood(x, p, n):
     '''
     likelihood,
-    vedere docu di multivariate_hypergeom
+    vedere docu di multinomial
     '''
     return stat.multinomial.pmf(x=x, n=n, p=p)
 
