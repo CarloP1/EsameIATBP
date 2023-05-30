@@ -1,6 +1,7 @@
 """
 Simple code that implements the nested sampling
-to compute the evidence of a multidimensional gaussian
+to compute the evidence of a multivariate
+hypergeometric distribution
 """
 import time
 import numpy as np
@@ -14,7 +15,7 @@ def log_likelihood(ni, Ni, D, N):
 
     Parameters
     ----------
-    x : array or matrix
+    Ni : array or matrix
         array of parameters
     D : int
         dimension of parameter space
@@ -306,7 +307,7 @@ def plot_hist_par(prior, posterior, D, save=False, show=False):
 if __name__ == "__main__":
 
     np.random.seed(69420)
-    #number of points
+    #number of points and voters
     N = int(1e3)
 
     bound = np.array([200, 650, 200, 650, 200, 650], dtype=int)
@@ -331,7 +332,6 @@ if __name__ == "__main__":
     list_evidence   = NS["list_evidence"]
 
     print(f"Evidence sampling    = {evidence:.3f} +- {error_evidence:.3f}")
-    #print(f"Theoretical evidence = {-D*np.log(2*bound):.3f}")
 
     print(f"Number of iterations = {number_iter}")
 
