@@ -1,7 +1,7 @@
 """
 Simple code that implements the nested sampling
 to compute the evidence interpolating a 
-multivariate hypergeometric distribution
+multivariate hypergeometric distribution.
 """
 import time
 import numpy as np
