@@ -10,7 +10,6 @@ diff = np.zeros(len(NN))
 diffmax = np.zeros(len(NN))
 
 for k, N in enumerate(NN):
-    #N = 1000 # Popolazione totale avente diritto di voto
 
     Na = np.linspace(0, N, N+1, dtype=int) # possibili valori
     Nb = np.linspace(0, N, N+1, dtype=int) # che le variabili
@@ -25,7 +24,7 @@ for k, N in enumerate(NN):
     def likelihood(x, p, n):
         '''
         likelihood,
-        vedere docu di multivariate_hypergeom
+        vedere docu di multinomial
         '''
         return stat.multinomial.pmf(x=x, n=n, p=p)
 
@@ -67,8 +66,10 @@ for k, N in enumerate(NN):
     P_Ah = np.array([sum(Ph[i, :]) for i in range(N+1)])
     Norm_Pah = sum(P_Ah)
     P_Ah /= Norm_Pah
-
+    
+    #differenza tra evidenze
     diff[k] = abs(Norm_P-Norm_Ph)/Norm_P
+    #differenza tra max marginalized distribution
     diffmax[k] = abs(np.max(P_A)-np.max(P_Ah))/np.max(P_A)
 ##
 plt.figure(1)
