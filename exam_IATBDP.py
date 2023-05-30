@@ -11,7 +11,8 @@ start=time.time()
 def process_output(na, nb, nc, N, Na, Nb, pp, out_pro):
     '''
     Funzione che chima si serialmente la funzione per
-    fattorizzare dei numeri, ma viene eseguita
+    calcolare la posterior per diversi valori della probabilità
+    di dire la verità, ma viene eseguita
     dai vari processi parallelamente
 
     Parameters
@@ -26,21 +27,6 @@ def process_output(na, nb, nc, N, Na, Nb, pp, out_pro):
 
 
 def process_posterior(na, nb, nc, N, Na, Nb, PP, npro):
-    '''
-    Funzione che crea i processi che verranno utilizzati
-
-    Parameters
-    ----------
-    ntf : list
-        lista completa dei numeri da fattorizzare
-    npro : int
-        numero di processi da eseguire
-
-    Returns
-    ----------
-    result : dict
-        dizionario contenente tutti gli output
-    '''
 
     out = mp.Queue() # coda degli output
     pro = [] #lista dei processi
@@ -78,7 +64,7 @@ def run(na, nb, nc, N, Na, Nb, PP):
 def likelihood(x, p, n):
     '''
     likelihood,
-    vedere docu di multivariate_hypergeom
+    vedere docu di multinomial
     '''
     return stat.multinomial.pmf(x=x, n=n, p=p)
 
