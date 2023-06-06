@@ -4,3 +4,5 @@ The codes compute the probability of victory among 3 parties considering polling
 There are two different versions that consider the 1 stage and 2 stages elections.
 There are simpler versions that do not consider the probability of saying the truth of interviewed people.
 They are not properly commented in the current version.
+
+#MO LI COMMENTIAMO
